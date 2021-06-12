@@ -1,18 +1,8 @@
 {% extends 'base.html' %}
 {% block body %}
-<!-- <div class="col-md-8">-->
-<!--     Home Page-->
-<!-- </div>-->
 
-<h2>grokonez.com</h2>
-
-{% if user.is_authenticated %}
-	<p>Hi {{ user.full_name }}, Welcome to site!</p>
-	<p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-	<p>You are not logged in!</p>
-	<a href="{% url 'login' %}">Log In</a> /
-	<a href="{% url 'signup' %}">Sign Up</a>
-{% endif %}
-
+{% load static %}
+<div style="display: flex; justify-content: center;">
+    <img style="width: -webkit-fill-available; padding: 50px" src="{% static 'img/house.png' %}">
+</div>
 {% endblock %}

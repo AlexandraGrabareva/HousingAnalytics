@@ -1,34 +1,26 @@
 {% extends 'base.html' %}
 {% block body %}
-<!--<form method="POST" class="post-form" action="/home/">-->
-<!--    {% csrf_token %}-->
-<!--    <div class="col-md-8">-->
-<!--        <div class="form-group">-->
-<!--            <label for="username">Username</label>-->
-<!--            <input type="text" name="username" class="form-control" required="required"/>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="password">Password</label>-->
-<!--            <input type="password" name="password" class="form-control" required="required"/>-->
-<!--        </div>-->
-<!--        <center><label class="text-danger">{{ msg }}</label></center>-->
-<!--        <br />-->
-<!--        <div class="form-group">-->
-<!--            <button class="btn btn-primary form-control"><span class="glyphicon glyphicon-log-in"></span> Login</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
 
-<h2>Login</h2>
+<div class="card-deck" style="display: flex; justify-content: center;">
 
-<a href="{% url 'index' %}">Home</a> /
-<a href="{% url 'signup' %}">Sign up</a>
+  <div class="card main-background" style="padding: 50px; margin: 50px; text-align: center;">
+    <h2>Авторизация</h2>
 
-<h2>Login</h2>
-<form method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">Login</button>
-</form>
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="form-inline" style="display: flex; align-items: baseline; padding-top: 15px">
+        {{ field }}
+      </div>
+      {% endfor %}
+      <div style="padding-top: 30px; display: flex; justify-content: center;">
+      <button type="submit" class="btn btn-primary">Ввойти</button>
+    </div>
+    </form>
+
+    <a href="{% url 'signup' %}" style="padding-top: 30px; display: flex; justify-content: center;">Регистрация</a>
+  </div>
+
+</div>
 
 {% endblock %}

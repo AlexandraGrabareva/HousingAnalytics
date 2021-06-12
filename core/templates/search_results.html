@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h1>Search Results</h1>
+
+<ul>
+    {% for house in object_list %}
+    <li>
+        {{ house.name }}, {{ house.status }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

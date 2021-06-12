@@ -21,6 +21,8 @@ from analytics import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from analytics.views import SearchResultsView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
@@ -31,6 +33,7 @@ urlpatterns = [
     path('developers/', views.developers, name='developers'),
     path('houses/', views.houses, name='houses'),
     url(r'^search/$', views.search, name='search'),
+    path('search_results/', SearchResultsView.as_view(), name='search_results'),
 ]
 
 if settings.DEBUG:

@@ -1,50 +1,32 @@
 {% extends 'base.html' %}
 {% block body %}
-<!--<form method="POST">-->
-<!--    {% csrf_token %}-->
-<!--    <div class="col-md-8">-->
-<!--        <div class="form-group">-->
-<!--            <label for="username">Username</label>-->
-<!--            <input type="text" name="username" class="form-control" required="required">-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="password">Password</label>-->
-<!--            <input type="password" name="password" class="form-control" required="required"/>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="firstname">Firstname</label>-->
-<!--            <input type="text" name="firstname" class="form-control" required="required"/>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="lastname">Lastname</label>-->
-<!--            <input type="text" name="lastname" class="form-control" required="required"/>-->
-<!--        </div>-->
-<!--        <br />-->
-<!--        <div class="form-group">-->
-<!--            <button type="submit" class="btn btn-primary form-control"><span class="glyphicon glyphicon-save"></span> Submit</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
-<h2>Sign up</h2>
 
-<a href="{% url 'index' %}">Home</a> /
-<a href="{% url 'login' %}">Login</a>
+<div class="card-deck" style="display: flex; justify-content: center;">
 
-<h2>Sign up</h2>
-<form method="post">
-	{% csrf_token %}
-	{% for field in form %}
-	<p>
-		{{ field.label_tag }}<br/>
-		{{ field }}
-		{% if field.help_text %}
-			<small style="color: green">{{ field.help_text }}</small>
-		{% endif %}
-		{% for error in field.errors %}
-			<p style="color: red">{{ error }}</p>
-		{% endfor %}
-	</p>
-	{% endfor %}
-	<button type="submit">Sign up</button>
-</form>
+	<div class="card main-background" style="padding: 50px; margin: 50px;">
+		<h2 style="text-align: center;">Регистрация</h2>
+
+		<form method="POST">
+			{% csrf_token %}
+			{% for field in form %}
+			<div class="form-group" style="display: flex; align-items: baseline; padding-top: 15px; flex-direction: column;">
+				{{ field }}
+				<p>
+					{% if field.help_text %}
+					<small style="color: green">{{ field.help_text }}</small>
+					{% endif %}
+					{% for error in field.errors %}
+					<br /><small style="color: red">{{ error }}</small>
+					{% endfor %}
+				</p>
+			</div>
+			{% endfor %}
+			<div style="padding-top: 30px; display: flex; justify-content: center;">
+				<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+			</div>
+		</form>
+	</div>
+
+</div>
+
 {% endblock %}
