@@ -19,3 +19,4 @@ tests/report/
 db.sqlite3
 analytics/migrations/
 venv/
+/media/

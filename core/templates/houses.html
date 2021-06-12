@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% load static %}
+
+    {% for house in houses %}
+        <div>
+            {{house.name}}<br />
+            {{house.year}}<br />
+            {{house.number_of_floors}}<br />
+            {{house.number_of_apartments}}<br />
+            {{house.get_house_class_display}}<br />
+            {{house.get_status_display}}<br />
+            {{house.get_availability_of_apartments_display}}<br />
+            {{house.address}}<br />
+            <img src="{{ house.image.url }}">
+        </div><br />
+    {% endfor %}
+
+{% endblock %}
+
+
+
+

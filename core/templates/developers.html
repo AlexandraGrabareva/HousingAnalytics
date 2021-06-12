@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% load static %}
+
+    {% for developer in developers %}
+        <div>
+            {{developer.name}}<br />
+            {{developer.site}}<br />
+            {{developer.foundation_year}}<br />
+            {{developer.phone_number}}<br />
+            <img src="{{ developer.image.url }}">
+        </div><br />
+    {% endfor %}
+
+{% endblock %}

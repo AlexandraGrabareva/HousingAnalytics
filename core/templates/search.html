@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="get">
+  {{ filter.form.as_p }}
+  <button type="submit">Search</button>
+</form>
+<ul>
+  {% for house in filter.qs %}
+  <li>{{ house.name }} - {{ house.year }}</li>
+  <li>{{house.name}}</li>
+  <li>{{house.year}}</li>
+  <li>{{house.number_of_floors}}</li>
+  <li>{{house.number_of_apartments}}</li>
+  <li>{{house.get_house_class_display}}</li>
+  <li>{{house.get_status_display}}</li>
+  <li>{{house.get_availability_of_apartments_display}}</li>
+  <li>{{house.address}}</li>
+  <li><img src="{{ house.image.url }}"></li>
+  {% endfor %}
+</ul>
+{% endblock %}

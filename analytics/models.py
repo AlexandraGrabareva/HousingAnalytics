@@ -1,5 +1,4 @@
 from django.db import models
-from django import forms
 from django.contrib.auth.models import AbstractUser
 import datetime
 from django.core.validators import RegexValidator
@@ -41,12 +40,14 @@ class Developer(models.Model):
     site = models.CharField('Сайт', max_length=100)
     foundation_year = models.IntegerField('Дата основания', choices=FOUNDATION_YEAR, default=datetime.datetime.now().year)
     phone_number = models.CharField('Номер телефона', validators=[PHONE_REGEX], max_length=17)
+    image = models.FileField('Картинка', upload_to='logo/')
 
     def __str__(self):
         return f"{self.name}"
 
     class Meta:
-        verbose_name_plural = "Developers"
+        verbose_name = "Застройщик"
+        verbose_name_plural = "Застройщики"
 
 
 class House(models.Model):
@@ -58,6 +59,7 @@ class House(models.Model):
     status = models.CharField('Статус дома', max_length=100, choices=HOUSE_STATUSES)
     availability_of_apartments = models.CharField('Наличие квартир', max_length=100, choices=AVAILABILITY)
     address = models.CharField('Адрес', max_length=100)
+    image = models.FileField('Картинка', upload_to='img/')
 
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
 
@@ -65,4 +67,5 @@ class House(models.Model):
         return f"{self.name}"
 
     class Meta:
-        verbose_name_plural = "Houses"
+        verbose_name = "Дом"
+        verbose_name_plural = "Дома"

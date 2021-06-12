@@ -1,18 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-
 from .forms import SignUpForm
-
-# def signup(request):
-#     return render(request, 'signup.html')
-#
-#
-# def login(request):
-#     return render(request, 'login.html')
-#
-#
-# def index(request):
-#     return render(request, 'index.html')
+from .models import Developer, House
+from django.shortcuts import render
+from .filters import HouseFilter
 
 
 def index(request):
@@ -32,3 +23,20 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+
+def developers(request):
+    developer_list = Developer.objects.all()
+    return render(request, 'developers.html', {'developers': developer_list})
+
+
+def houses(request):
+    house_list = House.objects.all()
+    return render(request, 'houses.html', {'houses': house_list})
+
+
+def search(request):
+    house_list = House.objects.all()
+    house_filter = HouseFilter(request.GET, queryset=house_list)
+
+    return render(request, 'search.html', {'filter': house_filter})
