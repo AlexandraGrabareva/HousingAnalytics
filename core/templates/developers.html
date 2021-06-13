@@ -4,17 +4,17 @@
 
 {% load static %}
 
-<div class="card-deck main-background" style="display: flex; justify-content: space-evenly; padding: 50px;">
+<div class="card-deck main-background" style="display: flex; justify-content: space-evenly; padding: 50px; margin: 50px;">
   {% for developer in developers %}
-  <div class="card" style="width: 300px">
+  <div class="card" style="width: 300px; margin: 10px">
     <div class="card-header">
-      <img style="width: 270px" class="card-img-top" src="{{ developer.image.url }}" alt="Card image cap">
+      <img style="max-width: 270px;" class="card-img-top" src="{{ developer.image.url }}" alt="Card image cap">
     </div>
     <div class="card-body">
       <h5 class="card-title">{{developer.name}}</h5>
-      <p><a href="{{developer.site}}">{{developer.site}}</a></p>
-      <p class="card-text">{{developer.foundation_year}}</p>
-      <p class="card-text">{{developer.phone_number}}</p>
+      <p class="card-text">Сайт: <a href="{{developer.site}}">{{developer.site}}</a></p>
+      <p class="card-text">Год основания: <b>{{developer.foundation_year}}</b></p>
+      <p class="card-text">Номер телефона: <b>{{developer.phone_number}}</b></p>
     </div>
   </div>
   {% endfor %}

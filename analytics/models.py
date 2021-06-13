@@ -38,9 +38,9 @@ class CustomUser(AbstractUser):
 class Developer(models.Model):
     name = models.CharField('Название строительной компании', max_length=100, blank=False)
     site = models.CharField('Сайт', max_length=100)
-    foundation_year = models.IntegerField('Дата основания', choices=FOUNDATION_YEAR, default=datetime.datetime.now().year)
+    foundation_year = models.IntegerField('Год основания', choices=FOUNDATION_YEAR, default=datetime.datetime.now().year)
     phone_number = models.CharField('Номер телефона', validators=[PHONE_REGEX], max_length=17)
-    image = models.FileField('Картинка', upload_to='logo/')
+    image = models.FileField('Лого', upload_to='logo/')
 
     def __str__(self):
         return f"{self.name}"
@@ -55,11 +55,11 @@ class House(models.Model):
     year = models.IntegerField('Год ввода в эксплуатацию', choices=YEAR, default=datetime.datetime.now().year)
     number_of_floors = models.PositiveIntegerField('Этажность')
     number_of_apartments = models.PositiveIntegerField('Кол-во квартир')
-    house_class = models.CharField('Класс', max_length=100, choices=HOUSE_CLASSES)
+    house_class = models.CharField('Класс дома', max_length=100, choices=HOUSE_CLASSES)
     status = models.CharField('Статус дома', max_length=100, choices=HOUSE_STATUSES)
     availability_of_apartments = models.CharField('Наличие квартир', max_length=100, choices=AVAILABILITY)
     address = models.CharField('Адрес', max_length=100)
-    image = models.FileField('Картинка', upload_to='img/')
+    image = models.FileField('Фото', upload_to='img/')
 
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
 

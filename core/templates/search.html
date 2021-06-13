@@ -1,22 +1,66 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="get">
-  {{ filter.form.as_p }}
-  <button type="submit">Search</button>
+
+<form method="GET">
+  <div style="display: flex; justify-content: center; flex-wrap: wrap; padding-top: 20px; align-items: flex-end;">
+    {% for field in filter.form %}
+    {% if field.name == "name" %}
+    <div class="form-group row col-md-6" style="display: flex; align-items: baseline; padding-top: 15px; margin-right: 30px">
+      <label>{{ field.label }}</label>
+      {{ field }}
+    </div>
+    {% else %}
+    <div class="form-group row col-md-2" style="display: flex; align-items: baseline; padding-top: 15px; margin-right: 30px">
+      {% if field.name == "developer" %}
+      <label>Застройщик</label>
+      {% else %}
+      <label>{{ field.label }}</label>
+      {% endif %}
+      {{ field }}
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  <div style="padding: 30px; display: flex; justify-content: center;">
+    <button type="submit" class="btn btn-success">Поиск</button>
+  </div>
+
 </form>
-<ul>
+
+<div class="card-deck main-background" style="display: flex; flex-wrap: wrap; justify-content: space-evenly; padding: 50px; margin-bottom:100px">
+
+  {% if filter.qs %}
+
   {% for house in filter.qs %}
-  <li>{{ house.name }} - {{ house.year }}</li>
-  <li>{{house.name}}</li>
-  <li>{{house.year}}</li>
-  <li>{{house.number_of_floors}}</li>
-  <li>{{house.number_of_apartments}}</li>
-  <li>{{house.get_house_class_display}}</li>
-  <li>{{house.get_status_display}}</li>
-  <li>{{house.get_availability_of_apartments_display}}</li>
-  <li>{{house.address}}</li>
-  <li><img src="{{ house.image.url }}"></li>
+  <div class="card" style="width: 300px; margin: 20px">
+    <div class="card-body" style="display: flex; justify-content: center;">
+      <img style="width: 270px" class="card-img-top" src="{{ house.image.url }}" alt="Card image cap">
+    </div>
+    <div class="card-body">
+      <h5 class="card-title" style="margin-bottom: 30px;">{{house.name}}</h5>
+      {% if house.get_status_display == "сдан" %}
+      <p class="card-text">Статус дома: <span class="badge badge-info">{{house.get_status_display}}</span></p>
+      {% else %}
+      <p class="card-text">Статус дома: <span class="badge badge-secondary">{{house.get_status_display}}</span></p>
+      {% endif %}
+      {% if house.get_availability_of_apartments_display == "есть" %}
+      <p class="card-text">Наличие квартир: <span class="badge badge-success">{{house.get_availability_of_apartments_display}}</span></p>
+      {% else %}
+      <p class="card-text">Наличие квартир: <span class="badge badge-danger">{{house.get_availability_of_apartments_display}}</span></p>
+      {% endif %}
+      <p class="card-text">Адрес: <b>{{house.address}}</b></p>
+      <p class="card-text">Класс дома: <b>{{house.get_house_class_display}}</b></p>
+      <p class="card-text">Год ввода в эксплуатацию: <b>{{house.year}}</b></p>
+      <p class="card-text">Этажность: <b>{{house.number_of_floors}}</b></p>
+    </div>
+  </div>
   {% endfor %}
-</ul>
+
+  {% else %}
+  Не нашлось результатов, удовлетворяющих Вашему запросу
+  {% endif %}
+
+</div>
+
 {% endblock %}

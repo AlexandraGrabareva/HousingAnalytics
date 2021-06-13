@@ -1,14 +1,51 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<h1>Search Results</h1>
+<div class="card-deck main-background" style="display: flex; flex-wrap: wrap; justify-content: space-evenly; padding: 50px; margin:50px">
 
-<ul>
-    {% for house in object_list %}
-    <li>
-        {{ house.name }}, {{ house.status }}
-    </li>
+    {% if not object_list %}
+    Не нашлось результатов, удовлетворяющих Вашему запросу
+    {% else %}
+
+    {% for object in object_list %}
+
+    {% if object.site %}
+    <div class="card" style="width: 300px; margin:10px">
+        <div class="card-header">
+            <img style="max-width: 270px;" class="card-img-top" src="{{ object.image.url }}" alt="Card image cap">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{object.name}}</h5>
+            <p class="card-text">Сайт: <a href="{{object.site}}">{{object.site}}</a></p>
+            <p class="card-text">Год основания: <b>{{object.foundation_year}}</b></p>
+            <p class="card-text">Номер телефона: <b>{{object.phone_number}}</b></p>
+        </div>
+    </div>
+    {% else %}
+    <div class="card" style="width: 300px; margin: 10px">
+        <div class="card-body" style="display: flex; justify-content: center;">
+            <img style="width: 270px" class="card-img-top" src="{{ object.image.url }}" alt="Card image cap">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title" style="margin-bottom: 30px;">{{object.name}}</h5>
+            {% if object.get_status_display == "сдан" %}
+            <p class="card-text">Статус дома: <span class="badge badge-info">{{object.get_status_display}}</span></p>
+            {% else %}
+            <p class="card-text">Статус дома: <span class="badge badge-secondary">{{object.get_status_display}}</span></p>
+            {% endif %}
+            {% if object.get_availability_of_apartments_display == "есть" %}
+            <p class="card-text">Наличие квартир: <span class="badge badge-success">{{object.get_availability_of_apartments_display}}</span></p>
+            {% else %}
+            <p class="card-text">Наличие квартир: <span class="badge badge-danger">{{object.get_availability_of_apartments_display}}</span></p>
+            {% endif %}
+            <p class="card-text">Адрес: <b>{{object.address}}</b></p>
+            <p class="card-text">Класс дома: <b>{{object.get_house_class_display}}</b></p>
+            <p class="card-text">Год ввода в эксплуатацию: <b>{{object.year}}</b></p>
+            <p class="card-text">Этажность: <b>{{object.number_of_floors}}</b></p>
+        </div>
+    </div>
+    {% endif %}
     {% endfor %}
-</ul>
-
+    {% endif %}
+</div>
 {% endblock %}

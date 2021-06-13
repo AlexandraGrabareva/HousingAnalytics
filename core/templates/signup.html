@@ -2,10 +2,8 @@
 {% block body %}
 
 <div class="card-deck" style="display: flex; justify-content: center;">
-
 	<div class="card main-background" style="padding: 50px; margin: 50px;">
 		<h2 style="text-align: center;">Регистрация</h2>
-
 		<form method="POST">
 			{% csrf_token %}
 			{% for field in form %}
@@ -22,11 +20,10 @@
 			</div>
 			{% endfor %}
 			<div style="padding-top: 30px; display: flex; justify-content: center;">
-				<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+				<button type="submit" class="btn btn-success">Зарегистрироваться</button>
 			</div>
 		</form>
 	</div>
-
 </div>
 
 {% endblock %}
