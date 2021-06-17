@@ -1,11 +1,14 @@
 from django.contrib import admin
-from analytics.models import Developer, House
+from analytics.models import Developer, House, CustomUser
 from django.utils.html import format_html
 from django.urls import reverse
 
 
 @admin.register(Developer)
 class DeveloperAdmin(admin.ModelAdmin):
+    def site(self):
+        return format_html("<a href='%s'>%s</a>" % (self.site, self.site))
+    list_display = ("name", "phone_number", site)
     search_fields = ("name",)
     pass
 
@@ -20,3 +23,13 @@ class HouseAdmin(admin.ModelAdmin):
         link = reverse("admin:analytics_developer_change", args=[obj.developer.id])
         return format_html('<a href="%s">%s</a>' % (link, obj.developer.name))
     link_to_developer.allow_tags = True
+
+
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ["username", "first_name", "last_name", "last_login", "is_superuser"]
+    search_fields = ("username", "first_name", "last_name",)
+    list_filter = ("is_superuser",)
+    pass
+
+
